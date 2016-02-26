@@ -1,0 +1,120 @@
+. {
+    margin: 0px;
+    padding: 0px;
+    border-collapse: collapse;
+}
+
+body {
+    height: 100%;
+    width: 100%;
+    margin: 0px;
+    padding: 0px;
+    background-color: #FFFFF0;
+}
+
+#mainContainer {
+    height: 100%;
+    width: 100%;
+
+}
+
+#gridCanvas {
+    width: 320px;
+    height: 320px;
+    padding: 15px;
+    top: 50px;
+    bottom: 100px;
+    background-color: #000000;
+    position: absolute;
+    display: inline-flex;
+    flex-direction: row;
+    flex-wrap: wrap;
+    box-sizing: border-box;
+}
+
+#gridStats {
+    width: 100%;
+    height: 50px;
+    position: absolute;
+}
+
+
+.cell {
+    margin: 1px;
+    height: 27px;
+    width: 27px;
+    border-radius: 4px;
+}
+
+
+.cellMin {
+    margin: 1px;
+    height: 18px;
+    width: 18px;
+    border-radius: 4px;
+}
+
+.cellZ {
+    margin: 1px;
+    height: 25px;
+    width: 25px;
+    border-radius: 4px;
+}
+
+
+.gridCell {
+    background-color: #787878;
+}
+
+.gridItem1Cell {
+    background-color: #90D354;
+}
+.gridItem2Cell {
+    background-color: #855656;
+}
+.gridItem3Cell {
+    background-color: #804081;
+}
+.gridItem4Cell {
+    background-color: #38BDD3;
+}
+.gridItem5Cell {
+    background-color: #2D659F;
+}
+.gridItem6Cell {
+    background-color: #F45858;
+}
+
+.gridItem7Cell {
+    background-color: #F2A166;
+}
+
+
+
+.gridItemEmpty {
+    background-color: inherit;
+}
+
+#gridOptions {
+    position: absolute;
+    top: 375px;
+    width: 100%;
+    height: 120px;
+    display: inline-flex;
+    flex-direction: row;
+    box-sizing: border-box;
+    justify-content: space-around;
+}
+
+.gridItemCont {
+     width: 100px;
+    position: relative;
+}
+
+.gridItem {  
+    position: absolute;        
+    display: inline-flex;
+    flex-direction: row;
+    flex-wrap: wrap;
+    box-sizing: border-box;
+}
