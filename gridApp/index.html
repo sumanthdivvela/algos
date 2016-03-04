@@ -1,9 +1,8 @@
 <!DOCTYPE HTML>
 <html>
-
 <head>
-    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0" />
+    <meta name="viewport" content="width=320 user-scalable=no">
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">    
     <link rel="stylesheet" type="text/css" href="gridapp.css" />
     <script type="text/javascript" src="basejs.js">
 </script>
@@ -12,24 +11,28 @@
 <body onload="appOnload();">
     <div id="mainContainer">
         <div id="gridStats">
+            <div id="settings"></div>
+            <div id="score">0</div>
+            <div id="maxScoreIcon"></div>
+            <div id="maxScore">0</div>
         </div>
         <div id="gridCanvas">
             <div class="">
             </div>
         </div>
         <div id="gridOptions">            
-                <div id="gridProb0" class="gridItemCont">
-                    <div id="gridProbItem0" class="gridItem">
+                <div id="gridProb0" class="gridItemCont" >
+                    <div id="gridProbItem0" class="gridItem" data-option="0">
                     
                     </div>
                 </div>
-                <div id="gridProb1" class="gridItemCont">
-                    <div id="gridProbItem1" class="gridItem">
+                <div id="gridProb1" class="gridItemCont" >
+                    <div id="gridProbItem1" class="gridItem" data-option="1">
                     
                     </div>
                 </div>
-                <div id="gridProb2" class="gridItemCont">
-                    <div id="gridProbItem2" class="gridItem">
+                <div id="gridProb2" class="gridItemCont" >
+                    <div id="gridProbItem2" class="gridItem" data-option="2">
                     
                     </div>
                 </div>               
