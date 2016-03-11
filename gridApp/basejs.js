@@ -1,11 +1,4 @@
-var appG = {};
-appG.gridOptions = [];
-appG.score = 0;
-appG.maxScore = localStorage.getItem("MAX_SCORE");
-appG.col = [0, 0, 0, 0, 0, 0, 0, 0, 0, 0];
-appG.row = [0, 0, 0, 0, 0, 0, 0, 0, 0, 0];
-
-
+var appG = {}
 CONSTS = {};
 CONSTS.GridItem0Cell = "gridItem0Cell";
 CONSTS.GridItem1Cell = "gridItem1Cell";
@@ -19,22 +12,6 @@ CONSTS.GridItem8Cell = "gridItem8Cell";
 CONSTS.GridItem9Cell = "gridItem9Cell";
 CONSTS.GridItem10Cell = "gridItem10Cell";
 CONSTS.GridItemEmpty = "gridItemEmpty";
-
-
-appG.GridCanvasItems = [
-[CONSTS.GridItem0Cell, CONSTS.GridItem0Cell, CONSTS.GridItem0Cell, CONSTS.GridItem0Cell, CONSTS.GridItem0Cell, CONSTS.GridItem0Cell, CONSTS.GridItem0Cell, CONSTS.GridItem0Cell, CONSTS.GridItem0Cell, CONSTS.GridItem0Cell], 
-[CONSTS.GridItem0Cell, CONSTS.GridItem0Cell, CONSTS.GridItem0Cell, CONSTS.GridItem0Cell, CONSTS.GridItem0Cell, CONSTS.GridItem0Cell, CONSTS.GridItem0Cell, CONSTS.GridItem0Cell, CONSTS.GridItem0Cell, CONSTS.GridItem0Cell], 
-[CONSTS.GridItem0Cell, CONSTS.GridItem0Cell, CONSTS.GridItem0Cell, CONSTS.GridItem0Cell, CONSTS.GridItem0Cell, CONSTS.GridItem0Cell, CONSTS.GridItem0Cell, CONSTS.GridItem0Cell, CONSTS.GridItem0Cell, CONSTS.GridItem0Cell], 
-[CONSTS.GridItem0Cell, CONSTS.GridItem0Cell, CONSTS.GridItem0Cell, CONSTS.GridItem0Cell, CONSTS.GridItem0Cell, CONSTS.GridItem0Cell, CONSTS.GridItem0Cell, CONSTS.GridItem0Cell, CONSTS.GridItem0Cell, CONSTS.GridItem0Cell], 
-[CONSTS.GridItem0Cell, CONSTS.GridItem0Cell, CONSTS.GridItem0Cell, CONSTS.GridItem0Cell, CONSTS.GridItem0Cell, CONSTS.GridItem0Cell, CONSTS.GridItem0Cell, CONSTS.GridItem0Cell, CONSTS.GridItem0Cell, CONSTS.GridItem0Cell], 
-[CONSTS.GridItem0Cell, CONSTS.GridItem0Cell, CONSTS.GridItem0Cell, CONSTS.GridItem0Cell, CONSTS.GridItem0Cell, CONSTS.GridItem0Cell, CONSTS.GridItem0Cell, CONSTS.GridItem0Cell, CONSTS.GridItem0Cell, CONSTS.GridItem0Cell], 
-[CONSTS.GridItem0Cell, CONSTS.GridItem0Cell, CONSTS.GridItem0Cell, CONSTS.GridItem0Cell, CONSTS.GridItem0Cell, CONSTS.GridItem0Cell, CONSTS.GridItem0Cell, CONSTS.GridItem0Cell, CONSTS.GridItem0Cell, CONSTS.GridItem0Cell], 
-[CONSTS.GridItem0Cell, CONSTS.GridItem0Cell, CONSTS.GridItem0Cell, CONSTS.GridItem0Cell, CONSTS.GridItem0Cell, CONSTS.GridItem0Cell, CONSTS.GridItem0Cell, CONSTS.GridItem0Cell, CONSTS.GridItem0Cell, CONSTS.GridItem0Cell], 
-[CONSTS.GridItem0Cell, CONSTS.GridItem0Cell, CONSTS.GridItem0Cell, CONSTS.GridItem0Cell, CONSTS.GridItem0Cell, CONSTS.GridItem0Cell, CONSTS.GridItem0Cell, CONSTS.GridItem0Cell, CONSTS.GridItem0Cell, CONSTS.GridItem0Cell], 
-[CONSTS.GridItem0Cell, CONSTS.GridItem0Cell, CONSTS.GridItem0Cell, CONSTS.GridItem0Cell, CONSTS.GridItem0Cell, CONSTS.GridItem0Cell, CONSTS.GridItem0Cell, CONSTS.GridItem0Cell, CONSTS.GridItem0Cell, CONSTS.GridItem0Cell]
-];
-
-
 
 appG.GridOptionsList = [
 //Item 1 : 4 cell Square;
@@ -70,7 +47,30 @@ appG.GridOptionsList = [
 ];
 
 
+function initializeApp(){
+	appG.gridOptions = [];
+	appG.score = 0;
+	appG.maxScore = localStorage.getItem("MAX_SCORE");
+	appG.col = [0, 0, 0, 0, 0, 0, 0, 0, 0, 0];
+	appG.row = [0, 0, 0, 0, 0, 0, 0, 0, 0, 0];
+		
+	appG.GridCanvasItems = [
+	[CONSTS.GridItem0Cell, CONSTS.GridItem0Cell, CONSTS.GridItem0Cell, CONSTS.GridItem0Cell, CONSTS.GridItem0Cell, CONSTS.GridItem0Cell, CONSTS.GridItem0Cell, CONSTS.GridItem0Cell, CONSTS.GridItem0Cell, CONSTS.GridItem0Cell], 
+	[CONSTS.GridItem0Cell, CONSTS.GridItem0Cell, CONSTS.GridItem0Cell, CONSTS.GridItem0Cell, CONSTS.GridItem0Cell, CONSTS.GridItem0Cell, CONSTS.GridItem0Cell, CONSTS.GridItem0Cell, CONSTS.GridItem0Cell, CONSTS.GridItem0Cell], 
+	[CONSTS.GridItem0Cell, CONSTS.GridItem0Cell, CONSTS.GridItem0Cell, CONSTS.GridItem0Cell, CONSTS.GridItem0Cell, CONSTS.GridItem0Cell, CONSTS.GridItem0Cell, CONSTS.GridItem0Cell, CONSTS.GridItem0Cell, CONSTS.GridItem0Cell], 
+	[CONSTS.GridItem0Cell, CONSTS.GridItem0Cell, CONSTS.GridItem0Cell, CONSTS.GridItem0Cell, CONSTS.GridItem0Cell, CONSTS.GridItem0Cell, CONSTS.GridItem0Cell, CONSTS.GridItem0Cell, CONSTS.GridItem0Cell, CONSTS.GridItem0Cell], 
+	[CONSTS.GridItem0Cell, CONSTS.GridItem0Cell, CONSTS.GridItem0Cell, CONSTS.GridItem0Cell, CONSTS.GridItem0Cell, CONSTS.GridItem0Cell, CONSTS.GridItem0Cell, CONSTS.GridItem0Cell, CONSTS.GridItem0Cell, CONSTS.GridItem0Cell], 
+	[CONSTS.GridItem0Cell, CONSTS.GridItem0Cell, CONSTS.GridItem0Cell, CONSTS.GridItem0Cell, CONSTS.GridItem0Cell, CONSTS.GridItem0Cell, CONSTS.GridItem0Cell, CONSTS.GridItem0Cell, CONSTS.GridItem0Cell, CONSTS.GridItem0Cell], 
+	[CONSTS.GridItem0Cell, CONSTS.GridItem0Cell, CONSTS.GridItem0Cell, CONSTS.GridItem0Cell, CONSTS.GridItem0Cell, CONSTS.GridItem0Cell, CONSTS.GridItem0Cell, CONSTS.GridItem0Cell, CONSTS.GridItem0Cell, CONSTS.GridItem0Cell], 
+	[CONSTS.GridItem0Cell, CONSTS.GridItem0Cell, CONSTS.GridItem0Cell, CONSTS.GridItem0Cell, CONSTS.GridItem0Cell, CONSTS.GridItem0Cell, CONSTS.GridItem0Cell, CONSTS.GridItem0Cell, CONSTS.GridItem0Cell, CONSTS.GridItem0Cell], 
+	[CONSTS.GridItem0Cell, CONSTS.GridItem0Cell, CONSTS.GridItem0Cell, CONSTS.GridItem0Cell, CONSTS.GridItem0Cell, CONSTS.GridItem0Cell, CONSTS.GridItem0Cell, CONSTS.GridItem0Cell, CONSTS.GridItem0Cell, CONSTS.GridItem0Cell], 
+	[CONSTS.GridItem0Cell, CONSTS.GridItem0Cell, CONSTS.GridItem0Cell, CONSTS.GridItem0Cell, CONSTS.GridItem0Cell, CONSTS.GridItem0Cell, CONSTS.GridItem0Cell, CONSTS.GridItem0Cell, CONSTS.GridItem0Cell, CONSTS.GridItem0Cell]
+	];
+	updateScore();
+}
+
 function appOnload() {
+	initializeApp();
     createGridCanvas();
     createGridOptions();
     appG.maxScore = appG.maxScore ? appG.maxScore : 0;
@@ -80,6 +80,9 @@ function appOnload() {
 
 function createGridCanvas() {
     var a = document.getElementById("gridCanvas");
+	
+	updateDimensions(a);
+	
     var l = appG.GridCanvasItems.length;
     var gridItems = appG.GridCanvasItems;
     var gridHtml = "";
@@ -91,8 +94,29 @@ function createGridCanvas() {
     a.innerHTML = gridHtml;
 }
 
+function updateDimensions(gridCanvas){
+	var gridWidth =  gridCanvas.offsetWidth;
+	gridCanvas.style.cssText = "height:" + gridWidth + "px;"
+	var cellSize = ((gridWidth -30)/appG.GridCanvasItems.length) - 2;
+	appG.gridWidth = gridWidth;
+	appG.cellSize = cellSize;
+	appG.cellMinSize = ((gridWidth -30)/15)-2;
+	appG.gridOptionsTop = (gridCanvas.offsetHeight + gridCanvas.offsetTop + 5 );
+	var styleSheet = document.styleSheets[0];
+	styleSheet.insertRule(".cellSize" + '{ height: ' + cellSize + 'px; width: ' + cellSize + 'px;}', styleSheet.cssRules.length);
+	styleSheet.insertRule(".cellSizeZ" + '{ height: ' + (cellSize - 2) + 'px; width: ' + (cellSize - 2) + 'px;}', styleSheet.cssRules.length);
+	styleSheet.insertRule(".cellSizeMin" + '{ height: ' + appG.cellMinSize + 'px; width: ' + appG.cellMinSize + 'px;}', styleSheet.cssRules.length);
+	styleSheet.insertRule(".gridItemCont" + '{ width: ' + ((gridWidth -30)/3) + 'px;}', styleSheet.cssRules.length);
+	
+	
+	var gridOptions = gridCanvas.nextSibling;
+	gridOptions.style.cssText = "top:" +appG.gridOptionsTop+ "px; height: " + (cellSize * 6) + "px;"
+	
+	
+}
+
 function createGridCell(skin, r, c) {
-    return `<div class='${skin ? skin : "cellSize"}' id='gridEle_${r}_${c}' ></div>`
+    return "<div class='"+(skin ? skin : "cellSize")+ "' id='gridEle_"+r+"_"+c+"' ></div>"
 }
 
 
@@ -123,8 +147,6 @@ function createGridOptions() {
     var randList = randItems();
     appG.gridOptions = randList;
     var l = randList.length;
-    
-    var cellMinSize = 20;
     for (var i = 0; i < l; i++) {
         var a = document.getElementById("gridProbItem" + i);
         renderGridOption(a, "cellSizeMin ")
@@ -152,7 +174,7 @@ function renderGridOption(element, cellSkin, update, parentLeft) {
             if (update && elementChildren.length > 0) {
                 replaceClass(elementChildren[k], 'cellSize\\S*', cellSkin);                
             } else {
-                gridHtml = gridHtml + `<div class='${cellSkin + gridOptionCol}' ></div>`
+                gridHtml = gridHtml + "<div class='"+ cellSkin + gridOptionCol + "' ></div>"
             }
             k++;
         }    
@@ -160,16 +182,24 @@ function renderGridOption(element, cellSkin, update, parentLeft) {
 
     if(!update){
         element.innerHTML = gridHtml;    
-    }
-    element.style = "width:auto;";
+    }    
+    element.style.cssText = "width:auto;";
+	var rect = elementChildren[0].getBoundingClientRect();
+	 if (update) {
+		var cellSize = rect.width + 4;	 
+	 }
+	 else{
+		var cellSize = rect.width + 2; 
+	 }
     
-    var cellSize = elementChildren[0].offsetWidth + 2;
-    element.style = "width:" + (width * cellSize) + "px;height:" + (height * cellSize) 
+    element.style.cssText = "width:" + (width * cellSize) + "px;height:" + (height * cellSize) 
     + "px; left:" + left + "px;";
+	
+	element.style.width = "width:" + (width * cellSize) + "px;" 
 
     if (update) {
-        if(parentLeft + element.offsetWidth > 320){
-            left = 320 - (parentLeft + element.offsetWidth) ;
+        if(parentLeft + element.offsetWidth > appG.gridWidth){
+            left = appG.gridWidth - (parentLeft + element.offsetWidth) ;
         }else{
             left = ((element.parentElement.offsetWidth - (width * cellSize)) / 2);
         }
@@ -178,6 +208,8 @@ function renderGridOption(element, cellSkin, update, parentLeft) {
     }
 
     element.style.left = left + "px";
+	element.style.display = "none";
+	element.style.display = "";
 }
 
 
@@ -216,7 +248,7 @@ function DragDrop(element) {
     this.element = element;
     this.startLeft = element.offsetLeft;
     //this.snapedCell = undefined;
-    //this.snapedCellXY = undefined;
+    this.snapedCellXY = [-1,-1];
     this.parentLeft = element.parentElement.offsetLeft
     var option = element.getAttribute("data-option");
     this.gridOption = appG.gridOptions[option];
@@ -229,7 +261,7 @@ function DragDrop(element) {
             this.cellSkin = this.gridOption[i][0]
         }
     }    
-    element.addEventListener(touch.events.touchstart, this, false);
+    element.parentElement.addEventListener(touch.events.touchstart, this, false);
 }
 
 DragDrop.prototype = {
@@ -252,16 +284,16 @@ DragDrop.prototype = {
     
     onTouchStart: function(event) {
         var element = this.element;
-        element.addEventListener(touch.events.touchmove, this, false);
-        element.addEventListener(touch.events.touchend, this, false);
-        element.addEventListener(touch.events.touchcancel, this, false);
+        element.parentElement.addEventListener(touch.events.touchmove, this, false);
+        element.parentElement.addEventListener(touch.events.touchend, this, false);
+        element.parentElement.addEventListener(touch.events.touchcancel, this, false);
         
         var touchEvent = event.touches && event.touches[0] || event;
         
         this.x1 = touchEvent.pageX || touchEvent.clientX;
         this.y1 = touchEvent.pageY || touchEvent.clientY;
-        
-        renderGridOption(element, "cellSize ", true,this.parentLeft);        
+        this.mappedCells = undefined;
+        renderGridOption(element, "cellSizeZ ", true,this.parentLeft);        
         element.style.top =  (element.offsetTop - 100) + "px";
 
     },
@@ -275,11 +307,9 @@ DragDrop.prototype = {
         var left = (this.startLeft + this.x2 - this.x1);
         var top = (this.y2 - this.y1 - 100)
         if (left > (0 - this.parentLeft) 
-        && left < (320 - this.parentLeft - element.offsetWidth) 
-        && top > -320 && top < window.screen.availHeight - 375 - element.offsetHeight) {
-            element.style.left = left + "px";
-            element.style.top = top + "px";
-            
+        && left < (appG.gridWidth - this.parentLeft - element.offsetWidth) 
+        && top > -appG.gridWidth && top < window.screen.availHeight - appG.gridOptionsTop - element.offsetHeight) {
+			
             this.identifyBoundingRect(left, top);
         
         }    
@@ -288,9 +318,9 @@ DragDrop.prototype = {
     onTouchEnd: function(event) {
         var element = this.element;
         element.style.left = this.startLeft;
-        element.removeEventListener(touch.events.touchmove, this, false);
-        element.removeEventListener(touch.events.touchend, this, false);
-        element.removeEventListener(touch.events.touchcancel, this, false);
+        element.parentElement.removeEventListener(touch.events.touchmove, this, false);
+        element.parentElement.removeEventListener(touch.events.touchend, this, false);
+        element.parentElement.removeEventListener(touch.events.touchcancel, this, false);
         
         renderGridOption(element, "cellSizeMin ", true,this.parentLeft);
         element.style.left = this.startLeft + "px";
@@ -299,32 +329,39 @@ DragDrop.prototype = {
     },
     
     removeEvent: function() {
-        this.element.removeEventListener(touch.events.touchstart, this, false);
+        this.element.parentElement.removeEventListener(touch.events.touchstart, this, false);
     },
     
     identifyBoundingRect: function(x, y) {
         var element = this.element;
         var canvas = document.getElementById("gridCanvas");
-        var colIndex = Math.round((this.parentLeft - 15 + x) / 29);
-        var rowIndex = Math.round((310 + y) / 29);
-        
-        if (colIndex < 10 && rowIndex < 10) {
+        var colIndex = Math.round((this.parentLeft - 15 + x) / appG.cellSize);
+        var rowIndex = Math.round((appG.gridWidth - 30 + y) / appG.cellSize);
+
+        if (colIndex < 10 && rowIndex < 10 
+			&& (this.snapedCellXY[0] != rowIndex || this.snapedCellXY[1] != colIndex) ) {
+			element.style.left = x + "px";
+			element.style.top = y + "px";			
             var ele = document.getElementById("gridEle_" + rowIndex + "_" + colIndex);
             if ((colIndex + this.noOfCols) <= 10 && (rowIndex + this.noOfRows) <= 10 
 				&& this.checkForOverlap(ele, rowIndex, colIndex)) {                
                 this.snapOption(ele);
-              //  this.snapedCell = ele;
-                //this.snapedCellXY = [xi, yi];
+                //this.snapedCell = ele;
+                this.snapedCellXY = [rowIndex, colIndex];
             }else{
 				this.mappedCells = undefined;
+				this.snapedCellXY = [-1,-1];
 			}
-        }
+        }else if( this.snapedCellXY[0] != rowIndex || this.snapedCellXY[1] != colIndex){
+			element.style.left = x + "px";
+			element.style.top = y + "px";
+		}
     },
     
     snapOption: function(canvasCell) {
         var element = this.element;
         var xi = canvasCell.offsetLeft - this.parentLeft;
-        var yi = canvasCell.offsetTop - 325;
+        var yi = canvasCell.offsetTop - (appG.gridWidth + 6);
         element.style.left = xi + "px";
         element.style.top = yi + "px";
     },
@@ -350,12 +387,11 @@ DragDrop.prototype = {
             this.mappedCells = undefined;
             updateScore();
             this.removeOption();
-            /*
+            
 			if(checkForGameOver()){
 				alert("Game Over.");
-				window.location.reload();
+				appOnload();
 			}
-			*/
         }
     },
     
@@ -363,18 +399,23 @@ DragDrop.prototype = {
         var mappedCells = [];
         var rows = rowIndex + this.noOfRows;
         var cols = colIndex + this.noOfCols;
-        for (var row = rowIndex; row < rows; row++) {
-            for (var col = colIndex; col < cols; col++) {            
-                if (appG.GridCanvasItems[row][col] !== CONSTS.GridItem0Cell 
-					&& this.gridOption[row - rowIndex][col - colIndex] !== CONSTS.GridItemEmpty) {
-                    return false;
-                } else {
-                    if (this.gridOption[row - rowIndex][col - colIndex] !== CONSTS.GridItemEmpty) {
-                        mappedCells.push([row, col]);
-                    }
-                }
-            }
-        }
+		try{
+			for (var row = rowIndex; row < rows; row++) {
+				for (var col = colIndex; col < cols; col++) {            
+					if (appG.GridCanvasItems[row][col] !== CONSTS.GridItem0Cell 
+						&& this.gridOption[row - rowIndex][col - colIndex] !== CONSTS.GridItemEmpty) {
+						return false;
+					} else {
+						if (this.gridOption[row - rowIndex][col - colIndex] !== CONSTS.GridItemEmpty) {
+							mappedCells.push([row, col]);
+						}
+					}
+				}
+			}
+		}catch(e){
+			return false;
+		}
+        
         this.mappedCells = mappedCells;
         return true;
     },
@@ -466,7 +507,7 @@ function animationEndEvent(event){
 	replaceClass(element, 'gridItem\\S*', " " + CONSTS.GridItem0Cell);
 	element.removeEventListener("webkitAnimationEnd", animationEndEvent);
 	element.removeEventListener("animationend"      , animationEndEvent);
-	element.style.animation = "";
+	element.style["-webkit-animation"] = "";
 }
 
 function cleanGridCells(rowIndex, colIndex) {
