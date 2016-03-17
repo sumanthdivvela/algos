@@ -9,7 +9,7 @@ body {
     width: 100%;
     margin: 0px;
     padding: 0px;
-    background-color: #5BA099;
+    background-color: #000000;
 }
 
 #mainContainer {
@@ -58,7 +58,7 @@ body {
 }
 
 .cellSizeZ {
-    margin: 2px;
+    margin: 3px;
     height: 25px;
     width: 25px;
     border-radius: 4px;
@@ -66,14 +66,14 @@ body {
 
 
 .gridItem0Cell {
-    background-color: #E2DBDB;
+    background-color: #565454;
 }
 
 .gridItem1Cell {
     background-color: #90D354;
 }
 .gridItem2Cell {
-    background-color: #855656;
+    background-color: #502727;
 }
 .gridItem3Cell {
     background-color: #804081;
@@ -97,11 +97,11 @@ body {
 }
 
 .gridItem9Cell {
-    background-color: #417311;
+    background-color: #59A015;
 }
 
 .gridItem10Cell {
-    background-color: #FFF166;
+    background-color: #3E45D0;
 }
 
 .gridItemEmpty {
@@ -162,15 +162,32 @@ body {
     width: 100px;        
     font-family: sans-serif;
     font-size: 24px;
-    color: #400303;
+    color: #F5EF03;
     align-self: center;
 }
 
+#gameOverView{	
+    background-color: rgba(138, 116, 87, 0.9);
+    height: 500px;
+    width: 100%;
+    z-index: 999;
+    position: absolute;
+    display: inline-flex;
+    flex-direction: column;
+    justify-content: space-around;
+}
+
+.gameOver, .gameOverScore, #playAgain, #closeGameOverView{
+	font-size: 40px;
+    text-align: center;
+}
+
+
 @keyframes clearCell {    
-    100% {background-color: #E2DBDB;}
+    100% {background-color: #565454;}
 }
 
 @-webkit-keyframes clearCell {    
-    100% {background-color: #E2DBDB;}
+    100% {background-color: #565454;}
 }
 

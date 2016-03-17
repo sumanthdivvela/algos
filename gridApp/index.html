@@ -9,7 +9,7 @@
 </script>
 </head>
 
-<body onload="appOnload();">
+<body onload="appOnload();" onunload="appUnload();">
     <div id="mainContainer">
         <div id="gridStats">
             <div id="settings"></div>
@@ -36,7 +36,20 @@
                     
                     </div>
                 </div>               
-        </div>
+        </div><div id="gameOverView" style="display:none">
+			<div id="gameOver" class="gameOver">
+					Game Over
+			</div>
+			<div class="gameOverScore" >
+				Score : <span id="gameOverScore"></span>
+			</div>
+			<div id="playAgain" >
+				New Again
+			</div>		
+			<div id="closeGameOverView" style="display:none">
+				Close
+			</div>
+		</div>
     </div>
 </body>
 

@@ -38,22 +38,33 @@ appG.GridOptionsList = [
 
 [[CONSTS.GridItem7Cell]],
 
+[[CONSTS.GridItem7Cell],
+ [CONSTS.GridItem7Cell]],
+
+[[CONSTS.GridItem7Cell, CONSTS.GridItem7Cell]],
+
 [[CONSTS.GridItemEmpty, CONSTS.GridItem8Cell, CONSTS.GridItem8Cell],
  [CONSTS.GridItem8Cell, CONSTS.GridItem8Cell, CONSTS.GridItemEmpty]],
 
 [[CONSTS.GridItemEmpty, CONSTS.GridItem9Cell],
  [CONSTS.GridItem9Cell, CONSTS.GridItem9Cell],
  [CONSTS.GridItem9Cell, CONSTS.GridItemEmpty]],
+ 
+ [[CONSTS.GridItemEmpty, CONSTS.GridItem10Cell, CONSTS.GridItemEmpty],
+ [CONSTS.GridItem10Cell, CONSTS.GridItem10Cell, CONSTS.GridItem10Cell]],
+ 
+ 
 ];
 
-
 function initializeApp(){
+	
+	appG.baseScore = 1000;
+	appG.baseOptions = 7;
 	appG.gridOptions = [];
-	appG.score = 0;
-	appG.maxScore = localStorage.getItem("MAX_SCORE");
-	appG.col = [0, 0, 0, 0, 0, 0, 0, 0, 0, 0];
-	appG.row = [0, 0, 0, 0, 0, 0, 0, 0, 0, 0];
-		
+	appG.gridOptionsPlaced = [];
+	appG.score = 0;	
+	appG.col =[0, 0, 0, 0, 0, 0, 0, 0, 0, 0];
+	appG.row =[0, 0, 0, 0, 0, 0, 0, 0, 0, 0];		
 	appG.GridCanvasItems = [
 	[CONSTS.GridItem0Cell, CONSTS.GridItem0Cell, CONSTS.GridItem0Cell, CONSTS.GridItem0Cell, CONSTS.GridItem0Cell, CONSTS.GridItem0Cell, CONSTS.GridItem0Cell, CONSTS.GridItem0Cell, CONSTS.GridItem0Cell, CONSTS.GridItem0Cell], 
 	[CONSTS.GridItem0Cell, CONSTS.GridItem0Cell, CONSTS.GridItem0Cell, CONSTS.GridItem0Cell, CONSTS.GridItem0Cell, CONSTS.GridItem0Cell, CONSTS.GridItem0Cell, CONSTS.GridItem0Cell, CONSTS.GridItem0Cell, CONSTS.GridItem0Cell], 
@@ -66,11 +77,41 @@ function initializeApp(){
 	[CONSTS.GridItem0Cell, CONSTS.GridItem0Cell, CONSTS.GridItem0Cell, CONSTS.GridItem0Cell, CONSTS.GridItem0Cell, CONSTS.GridItem0Cell, CONSTS.GridItem0Cell, CONSTS.GridItem0Cell, CONSTS.GridItem0Cell, CONSTS.GridItem0Cell], 
 	[CONSTS.GridItem0Cell, CONSTS.GridItem0Cell, CONSTS.GridItem0Cell, CONSTS.GridItem0Cell, CONSTS.GridItem0Cell, CONSTS.GridItem0Cell, CONSTS.GridItem0Cell, CONSTS.GridItem0Cell, CONSTS.GridItem0Cell, CONSTS.GridItem0Cell]
 	];
+	
+}
+
+function restoreApp(){
+	var appState = localStorage.getItem("APP_STATE") ;		
+	appState = appState ? JSON.parse(appState) : {};
+	appG.appState = appState;
+	
+	appG.gridOptions = appState.gridOptions || appG.gridOptions ;
+	appG.gridOptionsPlaced = appState.gridOptionsPlaced || appG.gridOptionsPlaced;
+	appG.score = appState.score || appG.score;
+	appG.maxScore = appState.maxScore;
+	appG.col = appState.col || appG.col;
+	appG.row = appState.row || appG.row;		
+	appG.GridCanvasItems = appState.GridCanvasItems || appG.GridCanvasItems
 	updateScore();
+}
+
+function appUnload(){
+	var appState = appG.appState  ;	
+	
+	appState.gridOptions = appG.gridOptions;
+	appState.score = appG.score;
+	appState.maxScore = appG.maxScore;
+	appState.col = appG.col;
+	appState.row = appG.row;
+	appState.gridOptionsPlaced = appG.gridOptionsPlaced;
+	appState.GridCanvasItems = appG.GridCanvasItems;	
+	localStorage.setItem("APP_STATE", JSON.stringify(appState));
+	
 }
 
 function appOnload() {
 	initializeApp();
+	restoreApp()
     createGridCanvas();
     createGridOptions();
     appG.maxScore = appG.maxScore ? appG.maxScore : 0;
@@ -97,6 +138,10 @@ function createGridCanvas() {
 function updateDimensions(gridCanvas){
 	var gridWidth =  gridCanvas.offsetWidth;
 	gridCanvas.style.cssText = "height:" + gridWidth + "px;"
+	
+	var a = document.getElementById("gameOverView");
+	a.style.cssText = "display:none;height:" + screen.height + "px;"
+	
 	var cellSize = ((gridWidth -30)/appG.GridCanvasItems.length) - 2;
 	appG.gridWidth = gridWidth;
 	appG.cellSize = cellSize;
@@ -104,7 +149,7 @@ function updateDimensions(gridCanvas){
 	appG.gridOptionsTop = (gridCanvas.offsetHeight + gridCanvas.offsetTop + 5 );
 	var styleSheet = document.styleSheets[0];
 	styleSheet.insertRule(".cellSize" + '{ height: ' + cellSize + 'px; width: ' + cellSize + 'px;}', styleSheet.cssRules.length);
-	styleSheet.insertRule(".cellSizeZ" + '{ height: ' + (cellSize - 2) + 'px; width: ' + (cellSize - 2) + 'px;}', styleSheet.cssRules.length);
+	styleSheet.insertRule(".cellSizeZ" + '{ height: ' + (cellSize - 4) + 'px; width: ' + (cellSize - 4) + 'px;}', styleSheet.cssRules.length);
 	styleSheet.insertRule(".cellSizeMin" + '{ height: ' + appG.cellMinSize + 'px; width: ' + appG.cellMinSize + 'px;}', styleSheet.cssRules.length);
 	styleSheet.insertRule(".gridItemCont" + '{ width: ' + ((gridWidth -30)/3) + 'px;}', styleSheet.cssRules.length);
 	
@@ -132,7 +177,8 @@ function randItems() {
     var randList = [];
     for (var i = 0; i < 100; i++) {
         if (trail(1 / appG.GridOptionsList.length)) {
-            randList.push(appG.GridOptionsList[i % appG.GridOptionsList.length]);
+			var scale = appG.score < appG.baseScore ? appG.baseOptions : appG.GridOptionsList.length;
+            randList.push(appG.GridOptionsList[i % scale]);
             if (randList.length === 3) {
                 return randList;
             }
@@ -142,14 +188,19 @@ function randItems() {
 
 function createGridOptions() {
     
-    unRegisterTouchEvents();
-    
-    var randList = randItems();
+    unRegisterTouchEvents();   
+	var randList;   	
+	if(appG.gridOptions.length > 0){
+		randList = appG.gridOptions;
+	}else{
+		randList = randItems();
+		appG.gridOptionsPlaced = [];
+	}	
     appG.gridOptions = randList;
     var l = randList.length;
-    for (var i = 0; i < l; i++) {
-        var a = document.getElementById("gridProbItem" + i);
-        renderGridOption(a, "cellSizeMin ")
+    for (var i = 0; i < l; i++) {		
+			var a = document.getElementById("gridProbItem" + i);
+			renderGridOption(a, "cellSizeMin ")		
     }
     registerTouchEvents(l);
 }
@@ -162,6 +213,11 @@ function renderGridOption(element, cellSkin, update, parentLeft) {
     var gridHtml = "";
     var left = 0;
     var option = element.getAttribute("data-option");
+	
+	if(appG.gridOptionsPlaced[option] == true ){
+		return;
+	}
+	
     var gridOption = appG.gridOptions[option];
     height = gridOption.length > height ? gridOption.length : height;
     var elementChildren = element.childNodes;
@@ -186,29 +242,32 @@ function renderGridOption(element, cellSkin, update, parentLeft) {
     element.style.cssText = "width:auto;";
 	var rect = elementChildren[0].getBoundingClientRect();
 	 if (update) {
-		var cellSize = rect.width + 4;	 
+		var cellSize = rect.width + 6;	 
 	 }
 	 else{
 		var cellSize = rect.width + 2; 
 	 }
+	 
+	 width = Math.ceil(width * cellSize);
+	 height = Math.ceil(height * cellSize);
     
-    element.style.cssText = "width:" + (width * cellSize) + "px;height:" + (height * cellSize) 
+    element.style.cssText = "width:" + width + "px;height:" + height 
     + "px; left:" + left + "px;";
 	
-	element.style.width = "width:" + (width * cellSize) + "px;" 
+	element.style.width = "width:" + width + "px;" 
 
     if (update) {
         if(parentLeft + element.offsetWidth > appG.gridWidth){
             left = appG.gridWidth - (parentLeft + element.offsetWidth) ;
         }else{
-            left = ((element.parentElement.offsetWidth - (width * cellSize)) / 2);
+            left = ((element.parentElement.offsetWidth - width) / 2);
         }
     }else{       
-        left = ((element.parentElement.offsetWidth - (width * cellSize)) / 2);
+        left = ((element.parentElement.offsetWidth - width) / 2);
     }
 
     element.style.left = left + "px";
-	element.style.display = "none";
+	//element.style.display = "none";
 	element.style.display = "";
 }
 
@@ -218,11 +277,59 @@ function gridOptionSelect(element) {
 }
 
 
+function playAgain(event){
+	
+	localStorage.setItem("APP_STATE",JSON.stringify({maxScore: appG.maxScore})) ;
+	var ele = event.target;	
+	var element = document.getElementById("gameOverScore");
+	element.innerHTML= ""+appG.score;
+	appOnload();
+	ele.parentElement.style.display = "none";
+	
+}
+
+function displayGameOverView(){
+	localStorage.setItem("APP_STATE",JSON.stringify({maxScore: appG.maxScore})) ;	
+	updateDisplay("gameOverView"," inline-flex" );
+	var ele = document.getElementById("gameOverScore");
+	ele.innerHTML= ""+appG.score;
+	initializeApp();
+	updateDisplay("gameOver","block" );
+	updateDisplay("closeGameOverView","none" );
+}
+
+function displaySettings(event){
+	updateDisplay("gameOverView"," inline-flex" );
+	var ele = document.getElementById("gameOverScore");
+	ele.innerHTML= ""+appG.score;
+	updateDisplay("gameOver","none" );
+	updateDisplay("closeGameOverView","block" );	
+}
+
+function closeDisplaySettings(event){
+	updateDisplay("gameOverView","none" );
+	updateDisplay("gameOver","block" );
+	updateDisplay("closeGameOverView","none" );	
+}
+
+function updateDisplay(id, display){
+	var ele = document.getElementById(id);
+	ele.style.display = display;
+}
+
 function registerTouchEvents(l) {
     for (var i = 0; i < l; i++) {
+		if(appG.gridOptionsPlaced[i] == true ){
+			continue;
+		}
         var a = document.getElementById("gridProbItem" + i);
         touch.eventList.push(new DragDrop(a));
     }
+	
+	addEventListener("playAgain", "click" , playAgain);
+	addEventListener("settings", "click" , displaySettings);
+	addEventListener("closeGameOverView", "click" , closeDisplaySettings);
+
 }
 
 function unRegisterTouchEvents() {
@@ -231,17 +338,54 @@ function unRegisterTouchEvents() {
         touch.eventList[i].removeEvent();
     }
     touch.eventList = [];
+	
+	removeEventListener("playAgain", "click" , playAgain);
+	removeEventListener("settings", "click" , displaySettings);
+	removeEventListener("closeGameOverView", "click" , closeDisplaySettings);
 }
 
+function addEventListener(id, eventType, callback){
+	var ele = document.getElementById(id);
+	ele.addEventListener(eventType , callback, false);
+}
 
+function removeEventListener(id, eventType, callback){
+	var ele = document.getElementById(id);
+	ele.removeEventListener(eventType , callback, false);
+}
+
+function isTouchDevice() {
+    return 'ontouchstart' in document.documentElement;
+}
 
 touch = {};
-touch.events = {
-    touchstart: "touchstart",
-    touchmove: "touchmove",
-    touchend: "touchend",
-    touchcancel: "touchcancel",
+if(isTouchDevice()){
+	touch.events = {
+		touchstart: "touchstart",
+		touchmove: "touchmove",
+		touchend: "touchend",
+		touchcancel: "touchcancel",
+	}
+}else{
+	var isPointerSupported = navigator.pointerEnabled;
+    if(isPointerSupported)
+    {
+		touch.events = {
+			touchstart: "pointerdown",
+			touchmove: "pointermove",
+			touchend: "pointerup",
+			touchcancel: "pointerout",
+		}
+	}else{
+		touch.events = {
+			touchstart: "mousedown",
+			touchmove: "mousemove",
+			touchend: "mouseup",
+			touchcancel: "mouseout",
+		}
+	}		
 }
+
 touch.eventList = [];
 
 function DragDrop(element) {
@@ -266,7 +410,7 @@ function DragDrop(element) {
 
 DragDrop.prototype = {
     
-    handleEvent: function(event) {
+    handleEvent: function(event) {		
         switch (event.type) 
         {
         case touch.events.touchstart:
@@ -388,9 +532,9 @@ DragDrop.prototype = {
             updateScore();
             this.removeOption();
             
-			if(checkForGameOver()){
-				alert("Game Over.");
-				appOnload();
+			if(checkForGameOver()){				
+				
+				displayGameOverView();				
 			}
         }
     },
@@ -423,11 +567,17 @@ DragDrop.prototype = {
     removeOption: function() {
         this.removeEvent();
         this.element.innerHTML = "";
+
+		var option = this.element.getAttribute("data-option");	
+		appG.gridOptionsPlaced[option] = true
+		
         var index = touch.eventList.indexOf(this);
         if (index > -1) {
             touch.eventList.splice(index, 1);
         }
         if (touch.eventList.length == 0) {
+			appG.gridOptions = [];
+			appG.gridOptionsPlaced = [];
             createGridOptions();
         }
     },
@@ -445,6 +595,13 @@ DragDrop.prototype = {
 			event.returnValue = false;
     }
 
+}
+
+function gameOver(){
+	var ele = document.getElementById("gameOver");
+	if(ele == undefined){
+		var divEle = document.createElement('div');
+	}
 }
 
 function checkForGameOver(){	
@@ -541,7 +698,6 @@ function updateScore() {
         appG.maxScore = appG.score;
         ele = document.getElementById("maxScore");
         ele.innerHTML = appG.maxScore;
-        localStorage.setItem("MAX_SCORE", appG.maxScore);
     }
 
 }
