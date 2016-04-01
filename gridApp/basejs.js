@@ -175,15 +175,15 @@ function trail(prob) {
 
 function randItems() {
     var randList = [];
-    for (var i = 0; i < 100; i++) {
+	var i = 0;
+    while (randList.length < 3) {
         if (trail(1 / appG.GridOptionsList.length)) {
 			var scale = appG.score < appG.baseScore ? appG.baseOptions : appG.GridOptionsList.length;
-            randList.push(appG.GridOptionsList[i % scale]);
-            if (randList.length === 3) {
-                return randList;
-            }
+            randList.push(appG.GridOptionsList[i % scale]);			
         }
+		i++;
     }
+	return randList;
 }
 
 function createGridOptions() {
@@ -629,29 +629,28 @@ function checkForGameOver(){
 
 
 function checkForLineMatch(rowIndex, colIndex) {
-    var rowCleared = false;
-    var colCleared = false;
+
     if (appG.row[rowIndex] === 10) {
 
         appG.score += 10;
         cleanGridCells(rowIndex, undefined);
         appG.row[rowIndex] = 0;
-        for(i=0; i < 10; i++){
-            appG.col[i] = appG.col[i] -1;
+        for(i=0; i < 10; i++){			
+			if(colIndex == i && appG.col[i] == 10){
+				appG.col[i] = appG.col[i] +1;
+			}
+			appG.col[i] = appG.col[i] -1;
         }
-        rowCleared = true;
     }
     if (appG.col[colIndex] === 10) {
         appG.score += 10;
         cleanGridCells(undefined, colIndex);
         appG.col[colIndex] = 0;
-         for(i=0; i < 10; i++){             
-                appG.row[i] = appG.row[i] -1;
-        }
-        colCleared = true;
-        if(rowCleared){
-            appG.col[colIndex]++; 
-            appG.row[rowIndex]++;           
+		for(i=0; i < 10; i++){
+			if(rowIndex == i && appG.row[i] == 0){
+				appG.row[i] = appG.row[i] +1;
+			}
+			appG.row[i] = appG.row[i] -1;
         }
     }
     updateScore();
